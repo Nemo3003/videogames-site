@@ -41,7 +41,7 @@ const createGame = async (req, res) => {
 
 //-***********************************************************************************************
 
-const deleteContact = async (req, res) => {
+const deleteGame = async (req, res) => {
   const gameId = new ObjectId(req.params.id);
   const resPonder = 200
   try {
@@ -53,7 +53,7 @@ const deleteContact = async (req, res) => {
 
 //-***********************************************************************************************
 
-const updateContact = async (req, res) => {
+const updateGame = async (req, res) => {
   const userId = new ObjectId(req.params.id);
   // be aware of updateOne if you only want to update specific fields
   const game = {
@@ -80,6 +80,6 @@ module.exports = {
    getAllGames,
    getGameById, 
    createGame,
-   deleteContact,
-   updateContact
+   deleteGame,
+   updateGame
   };

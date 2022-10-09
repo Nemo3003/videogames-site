@@ -1,0 +1,20 @@
+{
+    "company":{
+        "c_name": "inifina",
+        "direction": "John Doe",
+        "address": "Av FakeStreet 2345",
+        "city": "San Francisco",
+        "games": ["Empire Total War", "Call of Duty"],
+        "country": "United States",
+        "employees": 150
+    },
+    "company1":{
+        "c_name": "inifinita",
+        "direction": "John Doees",
+        "address": "Av FakeStreet 1345",
+        "city": "Los Angeles",
+        "games": ["Napoleon Total War", "Arena Total War"],
+        "country": "India",
+        "employees": 1500
+    }
+}

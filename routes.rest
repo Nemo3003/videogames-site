@@ -1,12 +1,12 @@
 //LOCALHOST
 ###
-//get all contacts
+//get all games
 GET http://localhost:8080/app/games/ 
 ###
 GET http://localhost:8080/app/games/63433d2b5a9b41dd59256770
 
-### Create contact 
-POST http://localhost:8080/app/contacts HTTP/1.1
+### Create game
+POST http://localhost:8080/app/games HTTP/1.1
 content-type: application/json
 
 { 
@@ -17,7 +17,7 @@ content-type: application/json
 "Price":"10"
 }
 
-### Update Contact Information
+### Update game's Information
 PUT http://localhost:8080/app/games/63433d2b5a9b41dd59256770 HTTP/1.1 
 content-type: application/json
 
@@ -27,38 +27,49 @@ content-type: application/json
     "type":"RTS",
     "Price":"10"
 } 
-### DELETE contact
+### DELETE game
 DELETE http://localhost:8080/app/games/63433d2b5a9b41dd59256770 HTTP/1.1
 
-//DEPLOYMENT
+
+// LOCALHOST COMPANIES
 ###
-https://cit341.onrender.com/app/games
+GET http://localhost:8080/app/companies/ 
 
 ###
-https://cit341.onrender.com/app/games/63433d2b5a9b41dd59256770
+GET http://localhost:8080/app/companies/634343ca5a9b41dd59256775
 ###
-https://cit341.onrender.com/app/games/63433d2b5a9b41dd59256770
-
-### Create contact
-POST https://cit341.onrender.com/app/games HTTP/1.1
+POST http://localhost:8080/app/companies/ HTTP/1.1
 content-type: application/json
 
-{ 
-    "title":"Arena Total War",
-    "description":"awesome game",
-    "type":"RTS",
-    "Price":"111"
+{
+    "c_name": "inifinita",
+    "direction": "John Doeess",
+    "address": "Av Street 2345",
+    "city": "San Palo",
+    "games": [
+    "Rome II Total War",
+    "Call of Duty II"
+    ],
+    "country": "United States",
+    "employees": 1250
 }
-
-### Update contact
-PUT https://cit341.onrender.com/app/games/63433d2b5a9b41dd59256770 HTTP/1.1 
+###
+PUT http://localhost:8080/app/companies/634347cf023e297e948cca04 HTTP/1.1 
 content-type: application/json
 
-{ 
-    "title":"Warhammer Total War",
-    "description":"awesome game",
-    "type":"RTS",
-    "Price":"1020"
-} 
-### DELETE contact
-DELETE https://cit341.onrender.com/app/games/63433d2b5a9b41dd59256770 HTTP/1.1
+{
+    "c_name": "inifinita",
+    "direction": "John Smith",
+    "address": "Av AvStreet 2345",
+    "city": "San Pablo",
+    "games": [
+    "Rome Total War",
+    "Call of Duty Infinite Warfare"
+    ],
+    "country": "United States",
+    "employees": 12500
+}
+###
+DELETE http://localhost:8080/app/companies/634347cf023e297e948cca04 HTTP/1.1
+
+//DEPLOYMENT
