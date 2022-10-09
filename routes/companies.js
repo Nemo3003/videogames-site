@@ -6,10 +6,10 @@ const router = express.Router();
 
 const {
     getAllComps,
-   getCompById, 
-   createComp,
-   deleteComp,
-   updateComp
+    getCompById, 
+    createComp,
+    deleteComp,
+    updateComp
 } = require('../controllers/companies.controllers');
 
 router.get('/', getAllComps);
