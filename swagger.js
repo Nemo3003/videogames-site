@@ -6,7 +6,7 @@ const doc = {
     description: 'This place has videogames!',
   },
   host: '',
-  schemes: ['http', 'https'],
+  schemes: ['https', 'http'],
 };
 
 const outputFile = './routes/swagger-output.json';
