@@ -1,0 +1,64 @@
+//LOCALHOST
+###
+//get all contacts
+GET http://localhost:8080/app/games/ 
+###
+GET http://localhost:8080/app/games/63433d2b5a9b41dd59256770
+
+### Create contact 
+POST http://localhost:8080/app/contacts HTTP/1.1
+content-type: application/json
+
+{ 
+    
+"title":"Rome Total War",
+"description":"awesome game",
+"type":"RTS",
+"Price":"10"
+}
+
+### Update Contact Information
+PUT http://localhost:8080/app/games/63433d2b5a9b41dd59256770 HTTP/1.1 
+content-type: application/json
+
+{ 
+    "title":"Attila Total War",
+    "description":"awesome game",
+    "type":"RTS",
+    "Price":"10"
+} 
+### DELETE contact
+DELETE http://localhost:8080/app/games/63433d2b5a9b41dd59256770 HTTP/1.1
+
+//DEPLOYMENT
+###
+https://cit341.onrender.com/app/games
+
+###
+https://cit341.onrender.com/app/games/63433d2b5a9b41dd59256770
+###
+https://cit341.onrender.com/app/games/63433d2b5a9b41dd59256770
+
+### Create contact
+POST https://cit341.onrender.com/app/games HTTP/1.1
+content-type: application/json
+
+{ 
+    "title":"Arena Total War",
+    "description":"awesome game",
+    "type":"RTS",
+    "Price":"111"
+}
+
+### Update contact
+PUT https://cit341.onrender.com/app/games/63433d2b5a9b41dd59256770 HTTP/1.1 
+content-type: application/json
+
+{ 
+    "title":"Warhammer Total War",
+    "description":"awesome game",
+    "type":"RTS",
+    "Price":"1020"
+} 
+### DELETE contact
+DELETE https://cit341.onrender.com/app/games/63433d2b5a9b41dd59256770 HTTP/1.1
