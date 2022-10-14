@@ -7,7 +7,11 @@ const ObjectId = require('mongodb').ObjectId;
 const getAllComps = async (req, res) => {
   const result = await mongodb.getDb().db('videogames').collection("companies").find().toArray().then((result) => {
     res.setHeader('Content-Type', 'application/json');
+    if(result.length > 0){
     res.status(200).json(result);
+  } else{
+    res.status(404).json({message: 'Nothing found!'});
+  }
   });
 };
 
@@ -17,7 +21,11 @@ const getCompById = async (req, res) => {
   const companyId = new ObjectId(req.params.id);
   const result = await mongodb.getDb().db('videogames').collection("companies").find({ _id: companyId }).toArray().then((result) => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(result);
+    if(result.length > 0){
+      res.status(200).json(result);
+    } else{
+      res.status(404).json({message: 'Nothing with that id was found!'});
+    }
   });
 };
 

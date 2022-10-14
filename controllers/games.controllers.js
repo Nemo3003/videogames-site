@@ -7,7 +7,11 @@ const ObjectId = require('mongodb').ObjectId;
 const getAllGames = async (req, res) => {
   const result = await mongodb.getDb().db('videogames').collection("games").find().toArray().then((result) => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(result);
+    if(result.length > 0){
+      res.status(200).json(result);
+    } else{
+      res.status(404).json({message: 'Nothing was found!'});
+    }
   });
 };
 
@@ -17,7 +21,11 @@ const getGameById = async (req, res) => {
   const gameId = new ObjectId(req.params.id);
   const result = await mongodb.getDb().db('videogames').collection("games").find({ _id: gameId }).toArray().then((result) => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(result);
+    if(result.length > 0){
+      res.status(200).json(result);
+    } else{
+      res.status(404).json({message: 'Nothing with that id was found!'});
+    }
   });
 };
 
