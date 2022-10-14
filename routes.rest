@@ -73,3 +73,75 @@ content-type: application/json
 DELETE http://localhost:8080/app/companies/634347cf023e297e948cca04 HTTP/1.1
 
 //DEPLOYMENT
+###
+//get all games
+GET https://videogames-7til.onrender.com/app/games/ 
+###
+GET https://videogames-7til.onrender.com/app/games/63433d2b5a9b41dd59256770
+
+### Create game
+POST https://videogames-7til.onrender.com/app/games HTTP/1.1
+content-type: application/json
+
+{ 
+    
+"title":"Rome Total War",
+"description":"awesome game",
+"type":"RTS",
+"Price":"10"
+}
+
+### Update game's Information
+PUT https://videogames-7til.onrender.com/app/games/63433d2b5a9b41dd59256770 HTTP/1.1 
+content-type: application/json
+
+{ 
+    "title":"Attila Total War",
+    "description":"awesome game",
+    "type":"RTS",
+    "Price":"10"
+} 
+### DELETE game
+DELETE https://videogames-7til.onrender.com/app/games/63433d2b5a9b41dd59256770 HTTP/1.1
+
+
+// LOCALHOST COMPANIES
+###
+GET https://videogames-7til.onrender.com/app/companies/ 
+
+###
+GET https://videogames-7til.onrender.com/app/companies/634343ca5a9b41dd59256775
+###
+POST https://videogames-7til.onrender.com/app/companies/ HTTP/1.1
+content-type: application/json
+
+{
+    "c_name": "inifinita",
+    "direction": "John Doeess",
+    "address": "Av Street 2345",
+    "city": "San Palo",
+    "games": [
+    "Rome II Total War",
+    "Call of Duty II"
+    ],
+    "country": "United States",
+    "employees": 1250
+}
+###
+PUT https://videogames-7til.onrender.com/app/companies/634347cf023e297e948cca04 HTTP/1.1 
+content-type: application/json
+
+{
+    "c_name": "inifinita",
+    "direction": "John Smith",
+    "address": "Av AvStreet 2345",
+    "city": "San Pablo",
+    "games": [
+    "Rome Total War",
+    "Call of Duty Infinite Warfare"
+    ],
+    "country": "United States",
+    "employees": 12500
+}
+###
+DELETE https://videogames-7til.onrender.com/app/companies/634347cf023e297e948cca04 HTTP/1.1
