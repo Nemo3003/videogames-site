@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/static/index.html'));
 });
 
-app.get('/', (req, res) => {
+app.get('/',requiresAuth(), (req, res) => {
     res.send(req.oidc.isAuthenticated ? 'Logged in' : 'Not logged in');
   });
 app.get('/profile', requiresAuth(), (req,res)=>{
