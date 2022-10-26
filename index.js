@@ -4,23 +4,43 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(express.json());
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const mongodb = require('./db/connect');
 const bodyParser = require('body-parser');
 const path = require('path');
 const axios = require('axios');
+const { auth, requiresAuth, } = require('express-openid-connect');
 const { 
   errorLogger, 
   errorResponder, 
   invalidPathHandler 
-} = require('./middleware/middleware')
+} = require('./middleware/middleware');
+const { application } = require('express');
+
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    secret: process.env.SECRET,
+    idpLogout: true,
+  })
+);
 
 app.use(express.static('static'));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/static/index.html'));
-  });
+  res.sendFile(path.join(__dirname, '/static/index.html'));
+});
 
+app.get('/', (req, res) => {
+    res.send(req.oidc.isAuthenticated ? 'Logged in' : 'Not logged in');
+  });
+app.get('/login', requiresAuth(), (req,res)=>{
+  res.send(JSON.stringify(req.oidc.user))
+})
   app.get('/auth', (req, res) => {
     res.redirect(
       `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`,

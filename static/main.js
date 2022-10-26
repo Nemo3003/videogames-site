@@ -15,3 +15,7 @@ if (TOKEN) {
   hide('.content.unauthorized');
   show('.content.authorized');
 }
+
+document.getElementById("log-btn").onclick = function () {
+  location.href = "http://localhost:8080/login";
+};
