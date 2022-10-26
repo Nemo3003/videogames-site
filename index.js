@@ -73,7 +73,7 @@ app.get('/profile', requiresAuth(), (req,res)=>{
     res.setHeader("Access-Control-Allow-Origin", "*");
     next();
   })
-  .use("/app", require("./routes"))
+  .use("/app", requiresAuth() , require("./routes"))
  
 // middleware
 app.use(errorLogger)
