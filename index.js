@@ -64,7 +64,7 @@ app.get('/profile', requiresAuth(), (req,res)=>{
       })
       .catch((err) => res.status(500).json({ err: err.message }));
   });
-  app.get('/app', (req, res) => {
+  app.get('/app', requiresAuth(),(req, res) => {
     res.sendFile(path.join(__dirname, '/static/links.html'));
   });
   app
