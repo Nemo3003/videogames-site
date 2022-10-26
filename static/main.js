@@ -17,5 +17,5 @@ if (TOKEN) {
 }
 
 document.getElementById("log-btn").onclick = function () {
-  location.href = "http://localhost:8080/login";
+  location.href = "https://videogames-7til.onrender.com/login";
 };
