@@ -67,6 +67,7 @@ app.get('/profile', requiresAuth(), (req,res)=>{
   app.get('/app', requiresAuth(),(req, res) => {
     res.sendFile(path.join(__dirname, '/static/links.html'));
   });
+  app.get('/app/app/games', requiresAuth(), require('./routes'))
   app
   .use(bodyParser.json())
   .use((req, res, next) => {
