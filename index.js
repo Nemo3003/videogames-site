@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 app.get('/', (req, res) => {
     res.send(req.oidc.isAuthenticated ? 'Logged in' : 'Not logged in');
   });
-app.get('/login', requiresAuth(), (req,res)=>{
+app.get('/profile', requiresAuth(), (req,res)=>{
   res.send(JSON.stringify(req.oidc.user))
 })
   app.get('/auth', (req, res) => {
