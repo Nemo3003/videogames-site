@@ -19,3 +19,10 @@ if (TOKEN) {
 document.getElementById("log-btn").onclick = function () {
   location.href = "https://videogames-7til.onrender.com/login";
 };
+
+document.getElementById("logout-btn").onclick = function () {
+  location.href = "https://videogames-7til.onrender.com/logout";
+};
+document.getElementById("btn-main").onclick = function () {
+  location.href = "https://videogames-7til.onrender.com/app";
+};
