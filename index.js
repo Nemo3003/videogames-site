@@ -67,12 +67,6 @@ app.get('/profile', requiresAuth(), (req,res)=>{
   app.get('/app', requiresAuth(),(req, res) => {
     res.sendFile(path.join(__dirname, '/static/links.html'));
   });
-  app.get('/app/app/games', requiresAuth(), (req,res)=>{
-    res.redirect('https://videogames-7til.onrender.com/app/app/games');
-  })
-  app.get('/app/app/companies', requiresAuth(), (req,res)=>{
-    res.redirect('https://videogames-7til.onrender.com/app/app/companies');
-  })
   app
   .use(bodyParser.json())
   .use((req, res, next) => {
