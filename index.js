@@ -19,9 +19,10 @@ const { application, response } = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const initializedPassport = require('./passport-config');
-initializedPassport(passport, email =>{
+const {createUs} = require( './controllers/users.controllers')
+/*initializedPassport(passport, email =>{
   return users.find(user => user.email === email)
-})
+})*/
 
 const users = []
 
@@ -45,24 +46,10 @@ app.get('/register', (req, res) => {
   res.render('register.ejs');
 })
 
-app.post('/register', async(req, res) => {
-
-  try{
-    const hashedPassword = await bcrypt.hash(req.body.password,10)
-    users.push({
-      id: Date.now().toString,
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    })
-    res.redirect('/logins')
-  }
-  catch{  
-    res.redirect('/register')
-  }
-  console.log(users)
+app.post('/register', createUs)
+app.post('/register', (req, res) =>{
+  res.render('register.ejs');
 })
-
   app
   .use(bodyParser.json())
   .use((req, res, next) => {

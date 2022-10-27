@@ -8,7 +8,7 @@ function initialize(passport, getUserByEmail){
             return done(null, false, {message: 'No user with email ' + email})
         }
         try{
-            if(await bcrypt.compare(password, user.password)){
+            if( bcrypt.compare(password, user.password)){
                 return done(null, user)
             }else{
                 return done(null, false, {message: 'Ups, you broke something'});
