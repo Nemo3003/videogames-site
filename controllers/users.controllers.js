@@ -6,12 +6,12 @@ const bcrypt = require('bcrypt');
 const createUs = async (req, res) => {
     try{
         const hashedPassword =  await bcrypt.hash(req.body.password, 10)
-        const user = {
+        const users = {
             fname: req.body.fname,
             lname: req.body.lname,
             password: hashedPassword
           };
-          const response = await mongodb.getDb().db('videogames').collection('users').insertOne(user);
+          const response = await mongodb.getDb().db('videogames').collection('users').insertOne(users);
             response.acknowledged
             res.status(201).json(response);
   
@@ -19,23 +19,8 @@ const createUs = async (req, res) => {
     res.status(500).send( 'Some error occurred while creating the users.');
 }
 }
-const logUs = async (req, res) => {
-    const user = user.find(user => user.name = req.body.fname)
-    if(user == null){
-        return res.status(404).send('Cannot find user')
-    }
-    try{
 
-    }catch(e){
-        res.status(500).send( 'Some error occurred while login the user.');
-    }
-}
-    
-  
-    
-  
 
 module.exports ={
-    createUs,
-    logUs
+    createUs
 }
