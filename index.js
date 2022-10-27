@@ -15,38 +15,54 @@ const {
   errorResponder, 
   invalidPathHandler 
 } = require('./middleware/middleware');
-const { application } = require('express');
+const { application, response } = require('express');
+const passport = require('passport');
+const bcrypt = require('bcrypt');
+const initializedPassport = require('./passport-config');
+initializedPassport(passport, email =>{
+  return users.find(user => user.email === email)
+})
 
-app.use(
-  auth({
-    authRequired: false,
-    auth0Logout: true,
-    issuerBaseURL: process.env.ISSUER_BASE_URL,
-    baseURL: process.env.BASE_URL,
-    clientID: process.env.CLIENT_ID,
-    secret: process.env.SECRET,
-    idpLogout: true,
-  })
-);
+const users = []
 
-app.use(express.static('static'));
+app.set('view-engine', 'ejs')
+app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/static/index.html'));
+  res.render('index.ejs');
 });
 
 
-app.get('/login', (req, res) => {
-  //Authenticate server
+app.get('/logins', (req, res) => {
+  res.render('login.ejs');
 })
 
-app.post('/users', (req, res) =>{
-
+app.post('/logins', (req, res) => {
+  
 })
 
-  app.get('/app', (req, res) => {
-    res.sendFile(path.join(__dirname, '/static/links.html'));
-  });
+app.get('/register', (req, res) => {
+  res.render('register.ejs');
+})
+
+app.post('/register', async(req, res) => {
+
+  try{
+    const hashedPassword = await bcrypt.hash(req.body.password,10)
+    users.push({
+      id: Date.now().toString,
+      name: req.body.name,
+      email: req.body.email,
+      password: hashedPassword
+    })
+    res.redirect('/logins')
+  }
+  catch{  
+    res.redirect('/register')
+  }
+  console.log(users)
+})
+
   app
   .use(bodyParser.json())
   .use((req, res, next) => {
