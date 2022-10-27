@@ -1,12 +1,12 @@
 document.getElementById("games-btn").onclick = function () {
-    location.href = "https://videogames-7til.onrender.com/app/app/games";
+    location.href = "http://localhost:8080/app/app/games";
 };
 document.getElementById("comp-btn").onclick = function () {
-    location.href = "https://videogames-7til.onrender.com/app/app/companies";
+    location.href = "http://localhost:8080/app/app/companies";
 };
 document.getElementById("swag-btn").onclick = function () {
-    location.href = "https://videogames-7til.onrender.com/app/api-docs";
+    location.href = "http://localhost:8080/app/api-docs";
 };
 document.getElementById("logout-btn").onclick = function () {
-    location.href = "https://videogames-7til.onrender.com/logout";
+    location.href = "http://localhost:8080/logout";
 };

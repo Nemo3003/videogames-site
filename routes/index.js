@@ -8,8 +8,9 @@ const {  requiresAuth } = require('express-openid-connect');
 
 
 router.use('/', require('./swagger'));
-router.use('/app/games', requiresAuth() ,require('./games'));
-router.use('/app/companies', requiresAuth(), require('./companies'));
+router.use('/app/games', require('./games'));
+router.use('/app/companies',  require('./companies'));
+router.use('/app/users',require('./users'))
 
 module.exports = router;
 

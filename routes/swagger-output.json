@@ -12,7 +12,43 @@
     "http"
   ],
   "paths": {
-    "/app/games/": {
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/users": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/app": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/app/app/games/": {
       "get": {
         "description": "",
         "produces": [
@@ -63,7 +99,7 @@
         }
       }
     },
-    "/app/games/{id}": {
+    "/app/app/games/{id}": {
       "get": {
         "description": "",
         "produces": [
@@ -146,7 +182,7 @@
         }
       }
     },
-    "/app/companies/": {
+    "/app/app/companies/": {
       "get": {
         "description": "",
         "produces": [
@@ -206,7 +242,7 @@
         }
       }
     },
-    "/app/companies/{id}": {
+    "/app/app/companies/{id}": {
       "get": {
         "description": "",
         "produces": [
@@ -291,6 +327,39 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/app/app/users/": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fname": {
+                  "example": "any"
+                },
+                "lname": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
           },
           "500": {
             "description": "Internal Server Error"

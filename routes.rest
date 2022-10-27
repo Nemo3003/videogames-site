@@ -36,6 +36,8 @@ DELETE http://localhost:8080/app/games/63433d2b5a9b41dd59256770 HTTP/1.1
 GET http://localhost:8080/app/companies/ 
 
 ###
+GET http://localhost:8080/
+###
 GET http://localhost:8080/app/companies/634343ca5a9b41dd59256775
 ###
 POST http://localhost:8080/app/companies/ HTTP/1.1
