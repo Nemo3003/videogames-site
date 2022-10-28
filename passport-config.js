@@ -1,33 +1,29 @@
-const localStrategy = require('passport-local').Strategy
-const bcrypt = require('bcrypt');
+const LocalStrategy = require('passport-local').Strategy
+const bcrypt = require('bcrypt')
 
-function initialize(passport, getUserByEmail){
-    const authenticatedUser = (email, password, done) =>{
-        const user = getUserByEmail(email)
-        if(user == null){
-            return done(null, false, {message: 'No user with email ' + email})
-        }
-        try{
-            if( bcrypt.compare(password, user.password)){
-                return done(null, user)
-            }else{
-                return done(null, false, {message: 'Ups, you broke something'});
-            }
-        }catch(e) {
-            return done(e)
-        }
+function initialize(passport, getUserByEmail, getUserById) {
+  const authenticateUser = async (email, password, done) => {
+    const user = getUserByEmail(email)
+    if (user == null) {
+      return done(null, false, { message: 'No user with that email' })
     }
-    passport.use( new localStrategy({
-        usernameField: 'email'
-    }), authenticatedUser)
-    passport.serializeUser((user, done)=>{
 
-    })
-    passport.deserializeUser((id, done)=>{
-        
-    })
+    try {
+      if (await bcrypt.compare(password, user.password)) {
+        return done(null, user)
+      } else {
+        return done(null, false, { message: 'Password incorrect' })
+      }
+    } catch (e) {
+      return done(e)
+    }
+  }
+
+  passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser))
+  passport.serializeUser((user, done) => done(null, user.id))
+  passport.deserializeUser((id, done) => {
+    return done(null, getUserById(id))
+  })
 }
 
-module.exports ={
-    initialize
-}
+module.exports = initialize
