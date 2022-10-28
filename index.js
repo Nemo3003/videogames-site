@@ -52,12 +52,12 @@ app.get('/logins', checkNotAuthenticated ,(req, res) => {
 })
 
 //Sets up what will happen if the redirect is successful, a failure, and what message will be displayed
-app.post('/logins', passport.authenticate('users',{
+/*app.post('/logins', passport.authenticate('local',{
   successRedirect: '/app',
   failureRedirect: '/logins',
   failureFlash: true
 
-}))
+}))*/
 //Load links.ejs file
 app.get('/app',checkAuthenticated, (req, res) => {
   res.render('links.ejs');
@@ -66,7 +66,7 @@ app.get('/app',checkAuthenticated, (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register.ejs');
 })
-app.post('/logins', getUserById)
+app.post('/logins', getUserById);
 //This app.post will help us create users using a form in the register page
 app.post('/register', createUs)
 
