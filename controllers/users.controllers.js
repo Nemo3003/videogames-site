@@ -14,12 +14,10 @@ const createUs = async (req, res) => {
           };
           const response = await mongodb.getDb().db('videogames').collection('users').insertOne(users);
             response.acknowledged
-            res.status(201).json(response);
-  
-}catch(e){
-    res.status(500).send( 'Some error occurred while creating the users.');
-}
-response.redirect('/logins');
+            res.status(201).json(response)
+    }catch(e){
+        res.status(500).send( 'Some error occurred while creating the users.');
+    }
 }
 
 
