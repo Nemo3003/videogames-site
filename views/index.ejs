@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Login to page</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Arvo&family=Kumbh+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link href="./style.css" rel="stylesheet" />
+ <link href="./style.css" rel="stylesheet" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
 
@@ -20,11 +9,9 @@
         <button href="/app" id="btn-main">Go to main page</button>
         <p> <small> If you wish, please log in! It is and will always be free!</small></p>
         <button href="/login" class=" btn btn-primary btn-default mb-4" id="log-btn">Do it!</button>
-        <div>
-          <p>Problems with the login button? No worries! Click on this one</p>
-          <button href="/logout" id="logout-btn" class="btn btn-primary">Fix everything!</button>
-        </div>
+        <form action="/logout?_method=DELETE" method="POST">
+          <button type="submit">Log Out</button>
+        </form>
     </div>
     <script type="text/javascript" src="main.js"></script>
-  </body>
-</html>
+

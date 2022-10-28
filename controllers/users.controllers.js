@@ -4,6 +4,19 @@ const ObjectId = require('mongodb').ObjectId;
 const bcrypt = require('bcrypt');
 const { response } = require('express');
 
+const getUserById = async (req, res) => {
+    const userId = new ObjectId(req.params.id);
+    const result = await mongodb.getDb().db('videogames').collection("users").find({ _id: userId }).toArray().then((result) => {
+      res.setHeader('Content-Type', 'application/json');
+      if(result.length > 0){
+        res.status(200).json(result);
+      } else{
+        res.status(404).json({message: 'Nothing with that id was found!'});
+      }
+    });
+  };
+
+
 const createUs = async (req, res) => {
     try{
         const hashedPassword =  await bcrypt.hash(req.body.password, 10)
@@ -19,8 +32,18 @@ const createUs = async (req, res) => {
         res.status(500).send( 'Some error occurred while creating the users.');
     }
 }
-
+const deleteUs = async (req, res) => {
+    const userId = new ObjectId(req.params.id);
+    const resPonder = 200
+    try {
+      await mongodb.getDb().db('videogames').collection('users').deleteOne({ _id: userId }, true);
+      res.sendStatus(200);
+    } catch (error) {
+       res.status(500).send;
+    }};
 
 module.exports ={
-    createUs
+    createUs,
+    deleteUs,
+    getUserById
 }
