@@ -42,6 +42,10 @@ app.post('/logins', (req, res) => {
   
 })
 
+app.get('/app', (req, res) => {
+  res.render('links.ejs');
+})
+
 app.get('/register', (req, res) => {
   res.render('register.ejs');
 })
