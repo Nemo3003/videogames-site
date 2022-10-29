@@ -6,12 +6,9 @@
     <div class="content unauthorized container d-flex justify-content-center">
         <h1>Welcome back!</h1>
         <p>What would you like to do?</p>
-        <button href="/app" id="btn-main">Go to main page</button>
+        <button href=<%= link %> id="btn-main">Go to main page</button>
         <p> <small> If you wish, please log in! It is and will always be free!</small></p>
-        <button href="/login" class=" btn btn-primary btn-default mb-4" id="log-btn">Do it!</button>
-        <form action="/logout?_method=DELETE" method="POST">
-          <button type="submit">Log Out</button>
-        </form>
+        <button href=<%= link %> class=" btn btn-primary btn-default mb-4" id="log-btn">Do it!</button>
     </div>
     <script type="text/javascript" src="main.js"></script>
 

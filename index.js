@@ -17,10 +17,22 @@ const bcrypt = require("bcrypt");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
-
 const { createUs, getUserById } = require("./controllers/users.controllers");
 
+
+const encryptor = require('url-encrypt')();
+encryptor.config({secretKey: 'some-secret-key'});
+const url = encryptor.encrypt('http://localhost:8080/app');
+
+console.log(encryptor.verify(url))
+
 //Passport configuration
+const initializePassport = require('./passport-config')
+initializePassport(
+  passport,
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
+)
 
 app.use(express.urlencoded({ extended: false }));
 //Sets up the session
@@ -59,12 +71,15 @@ app.get("/logins", checkNotAuthenticated, (req, res) => {
   failureFlash: true
 
 }))*/
+let coded1 =  process.env.MAIN_SECRET;
+
 //Load links.ejs file
-app.get("/app", checkAuthenticated, (req, res) => {
+app.get(`/${decodeURIComponent(coded1)}`, checkAuthenticated, (req, res) => {
   res.render("links.ejs");
 });
 //Loads ejs form
-app.get("/register", (req, res) => {
+
+app.post("/register", (req, res) => {
   res.render("register.ejs");
 });
 app.post("/logins", getUserById);
@@ -120,3 +135,7 @@ mongodb.initDb((err, mongodb) => {
     console.log(`Connected to port => ${PORT}`);
   }
 });
+module.exports = {
+  checkAuthenticated,
+  checkNotAuthenticated
+}

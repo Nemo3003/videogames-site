@@ -12,7 +12,6 @@ const {
 } = require('../controllers/games.controllers');
 
 
-
 // Games
 router.get('/', getAllGames);
 

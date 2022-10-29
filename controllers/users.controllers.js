@@ -12,7 +12,7 @@ const getUserById = async (req, res) => {
 
   const user = await mongodb
     .getDb()
-    .db("cs_341_projects")
+    .db("videogames")
     .collection("users")
     .findOne({ email: User.email });
 
@@ -20,15 +20,16 @@ const getUserById = async (req, res) => {
     .compare(User.password, user?.password)
     .then(function(result) {
       if (result === true) {
-        res.setHeader("Content-Type", "application/json");
-        res.status(200).json(user);
+        res.render("links.ejs", {link: "/app/app/games"});
       } else {
         res.status(401).send("username or password incorrect");
       }
+      
     })
     .catch((e) => {
       res.status(500).send("Server error signing in");
     });
+    
 };
 
 const createUs = async (req, res) => {
