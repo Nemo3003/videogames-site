@@ -19,11 +19,15 @@ const getUserById = async (req, res) => {
   bcrypt
     .compare(User.password, user?.password)
     .then(function(result) {
-      res.setHeader("Content-Type", "application/json");
-      res.status(200).json(user);
+      if (result === true) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(200).json(user);
+      } else {
+        res.status(401).send("username or password incorrect");
+      }
     })
     .catch((e) => {
-      res.status(401).send("username or password incorrect");
+      res.status(500).send("Server error signing in");
     });
 };
 
