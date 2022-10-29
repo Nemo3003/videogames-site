@@ -79,7 +79,7 @@ app.get(`/${decodeURIComponent(coded1)}`, checkAuthenticated, (req, res) => {
 });
 //Loads ejs form
 
-app.post("/register", (req, res) => {
+app.get("/register", (req, res) => {
   res.render("register.ejs");
 });
 app.post("/logins", getUserById);

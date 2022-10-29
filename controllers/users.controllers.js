@@ -1,8 +1,10 @@
-//@TS-Check
+
 const mongodb = require("../db/connect");
 const ObjectId = require("mongodb").ObjectId;
 const bcrypt = require("bcrypt");
 const { response } = require("express");
+require("dotenv").config();
+let coded2 = encodeURIComponent(process.env.GAMES_SECRET);
 
 const getUserById = async (req, res) => {
   const User = {
@@ -12,7 +14,7 @@ const getUserById = async (req, res) => {
 
   const user = await mongodb
     .getDb()
-    .db("videogames")
+    .db()
     .collection("users")
     .findOne({ email: User.email });
 
@@ -20,11 +22,10 @@ const getUserById = async (req, res) => {
     .compare(User.password, user?.password)
     .then(function(result) {
       if (result === true) {
-        res.render("links.ejs", {link: "/app/app/games"});
+        res.render("links.ejs", {link: "/app/app/games", name: user.name});
       } else {
         res.status(401).send("username or password incorrect");
       }
-      
     })
     .catch((e) => {
       res.status(500).send("Server error signing in");
