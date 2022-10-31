@@ -9,20 +9,18 @@
                 <p>{{type}}</p>
                 <p>{{price}}</p>
                  <!-- DELETE REQUEST -->
-        <form action="/notes/delete/{{_id}}?_method=DELETE" method="POST">
+        <form action="/app/app/games/games/delete/{{_id}}?_method=DELETE" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger btn-block btn-sm">Delete</button>
         </form>
             </div>
-            
         </div>
-        
     </div>
      {{else}}
   <div class="card mx-auto">
     <div class="card-body">
       <h1>Hello </h1>
-      <p clsss="lead">There are not Notes yet.</p>
+      <p clsss="lead">There are not Games yet.</p>
       <a href="/app/app/games/games/add" class="btn btn-success btn-block">Create One!</a>
     </div>
   </div>

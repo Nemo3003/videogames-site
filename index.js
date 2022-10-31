@@ -16,7 +16,7 @@ const {
 const { application, response } = require("express");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
-const flash = require("express-flash");
+const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const { createUs, getUserById } = require("./controllers/users.controllers");
@@ -42,6 +42,16 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
+app.use(flash())
+
+// global variables
+app.use((req, res, next) => {
+  res.locals.succes_msg = req.flash('succes_msg');
+  res.locals.error_msg = req.flash('error_msg');
+
+  next();
+})
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
