@@ -40,8 +40,21 @@ router.post('/new-game', async(req,res) => {
 
 })
 router.get('/games-added', async (req,res)=>{
-    const games = await Game.find().lean().sort({date: 'desc'});
+    const games = await Game.find()
+    .sort({date: 'desc'})
+    .lean();
     res.render('../views/games/all-games.hbs', { games });
+})
+
+router.get('/games/edit/:id', async (req,res)=>{
+    const gamesi = await Game.findById(req.params.id).lean()
+    res.render('../views/games/edit-game.hbs', {gamesi})
+})
+
+router.put('/games/edit-game',async (req,res)=>{
+    const {title, description, type, price} = req.body;
+    await Game.findByIdAndUpdate(req.params.id, {title, description, type, price});
+    res.redirect('/app/app/games/games-added')
 })
 
 router.get('/:id', getGameById);
