@@ -37,7 +37,7 @@ const createGame = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     type: req.body.type,
-    Price: req.body.Price
+    price: req.body.price
   };
   const response = await mongodb.getDb().db('videogames').collection('games').insertOne(game);
   if (response.acknowledged) {
