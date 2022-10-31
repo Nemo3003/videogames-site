@@ -1,2 +1,2 @@
 # CSE341
-- Fall Semester. Personal Project
+- Fall Semester. Personal Project.
