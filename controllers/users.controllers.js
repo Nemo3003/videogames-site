@@ -6,7 +6,7 @@ const { response } = require("express");
 require("dotenv").config();
 let coded2 = encodeURIComponent(process.env.GAMES_SECRET);
 
-const getUserById = async (req, res) => {
+/*const getUserById = async (req, res) => {
   const User = {
     email: req.body.email,
     password: req.body.password,
@@ -31,7 +31,7 @@ const getUserById = async (req, res) => {
       res.status(500).send("Server error signing in");
     });
     
-};
+};*/
 
 const createUs = async (req, res) => {
   try {
@@ -71,5 +71,5 @@ const deleteUs = async (req, res) => {
 module.exports = {
   createUs,
   deleteUs,
-  getUserById,
+  //getUserById,
 };

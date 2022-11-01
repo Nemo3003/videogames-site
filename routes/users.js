@@ -5,7 +5,7 @@ const router = express.Router();
 const User = require('../models/User')
 const passport = require('passport')
 
-const {createUs, deleteUs, getUserById} = require( '../controllers/users.controllers');
+//const {createUs, deleteUs, getUserById} = require( '../controllers/users.controllers');
 
 router.get('/', (req,res)=>{
     res.render('../views/index.hbs')
@@ -53,16 +53,16 @@ router.post('/signup', async (req,res)=>{
 router.get('/about', (req,res)=>{
     res.render('../views/about.hbs')
 })
-router.get('/:id', getUserById)
-router.post('/', createUs)
-router.delete('/:id', deleteUs)
+//router.get('/:id', getUserById)
+//router.post('/', createUs)
+//router.delete('/:id', deleteUs)
 
 // logout
 router.get('/logout', async function(req, res) {
     await req.logout((err) => {
         if (err) return next(err);
         req.flash("success_msg", "You are logged out now.");
-        res.redirect("/");
+        res.redirect("/app");
       });
   });
 
