@@ -58,10 +58,13 @@ router.post('/', createUs)
 router.delete('/:id', deleteUs)
 
 // logout
-router.get('/logout', (req,res) =>{
-    req.logout();
-    res.redirect('/');
-})
+router.get('/logout', async function(req, res) {
+    await req.logout((err) => {
+        if (err) return next(err);
+        req.flash("success_msg", "You are logged out now.");
+        res.redirect("/");
+      });
+  });
 
 // Exports
 module.exports = router;
