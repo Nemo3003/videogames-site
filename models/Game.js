@@ -17,7 +17,11 @@ const GameSchema = new mongoose.Schema(
     price:{
         type: String,
         required: true
-    }
+    },
+    user: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

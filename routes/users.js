@@ -3,9 +3,9 @@ var cors = require('cors')
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User')
+const passport = require('passport')
 
 const {createUs, deleteUs, getUserById} = require( '../controllers/users.controllers');
-const { info } = require('node-sass');
 
 router.get('/', (req,res)=>{
     res.render('../views/index.hbs')
@@ -13,6 +13,12 @@ router.get('/', (req,res)=>{
 router.get('/signin', (req,res)=>{
     res.render('../views/users/signin.hbs')
 })
+router.post('/signin', passport.authenticate("local", {
+    successRedirect: "/app/app/games/games/add",
+    failureRedirect: "/app/signin",
+    failureFlash: true,
+  }));
+
 // Sign up 
 router.get('/signup', (req,res)=>{
     res.render('../views/users/signup.hbs')
@@ -31,7 +37,7 @@ router.post('/signup', async (req,res)=>{
   const userFound = await User.findOne({ email: email });
   if (userFound) {
     req.flash("error_msg", "The Email is already in use.");
-    return res.redirect("/signup");
+    return res.redirect("/app/signup");
   }
 
   // Saving a New User
@@ -51,6 +57,11 @@ router.get('/:id', getUserById)
 router.post('/', createUs)
 router.delete('/:id', deleteUs)
 
+// logout
+router.get('/logout', (req,res) =>{
+    req.logout();
+    res.redirect('/');
+})
 
 // Exports
 module.exports = router;

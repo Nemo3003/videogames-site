@@ -14,15 +14,15 @@ const {
   invalidPathHandler,
 } = require("./middleware/middleware");
 const { application, response } = require("express");
-const passport = require("passport");
 const bcrypt = require("bcrypt");
 const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const { createUs, getUserById } = require("./controllers/users.controllers");
-require(('./database'))
+const passport = require("passport");
 
-
+require('./database')
+require('./config/passport')
 
 app.set('views', path.join(__dirname, 'views'))
 const hbs = exphbs.create({
@@ -43,38 +43,26 @@ app.use(session({
   saveUninitialized: true
 }))
 
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash())
 
 // global variables
 app.use((req, res, next) => {
-  res.locals.succes_msg = req.flash('succes_msg');
+  res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
-
+  res.locals.error = req.flash('error');
+  let user = null
+  if(req.user){
+      user =JSON.parse(JSON.stringify(req.user))
+  } 
+  res.locals.user = user; 
   next();
-})
+});
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-let coded1 =  process.env.MAIN_SECRET;
-
-//Load links.ejs file
-app.get(`/${decodeURIComponent(coded1)}`, (req, res) => {
-
-});
-//Loads ejs form
-
-app.get("/register", (req, res) => {
-
-});
-app.post("/logins", getUserById);
-//This app.post will help us create users using a form in the register page
-app.post("/register", createUs);
-
-//Makes the post request to the db
-app.post("/register", (req, res) => {
-
-});
 app
   .use(bodyParser.json())
   .use((req, res, next) => {
