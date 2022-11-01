@@ -17,7 +17,7 @@ const {isAuthenticated} = require('../helpers/authChecker');
 router.get('/', isAuthenticated,getAllGames);
 
 //Renders the form to create a new game
-router.get('/games/add', (req,res)=>{
+router.get('/games/add', isAuthenticated,(req,res)=>{
     res.render('../views/games/new-game')
 })
 // This will post the new game to the database while sending error messages if necessary
@@ -48,7 +48,6 @@ router.post('/new-game', isAuthenticated,async(req,res) => {
 //Renders the list of the games added
 router.get('/games-added',isAuthenticated, async (req,res)=>{
     const games = await Game.find({user: req.user.id})
-    .trim()
     .lean()
     .sort({date: 'desc'});
     res.render('../views/games/all-games.hbs', { games });

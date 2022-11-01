@@ -22,11 +22,12 @@ passport.use(
 
 //This allows you to save the user's session, this is useful to avoid asking the user to authenticate
 //everytime they want to visit a page
-passport.serializeUser((user, done)=>{
-    done(null, user.id)
-})
-passport.deserializeUser((user, done)=>{
-    User.findById(user.id, (err, user)=>{
-        done(err,user);
-    })
-})
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
