@@ -1,4 +1,3 @@
-const { info } = require('node-sass');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User')
