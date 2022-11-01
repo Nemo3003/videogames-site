@@ -1,9 +1,3 @@
-{{#each errors}}
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    {{text}}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{{/each}}
 <div class="row">
   <div class="col-md-4 mx-auto">
     <div class="card mt-5 bg-black text-white rounded">
@@ -18,7 +12,7 @@
         alt="Logo"
       />
       <div class="card-body">
-        <form action="/signin" method="POST">
+        <form action="/app/signin" method="POST">
           <div class="mb-3">
             <label for="email">Email:</label>
             <input
@@ -43,7 +37,6 @@
           </button>
         </form>
       </div>
-
       <p class="text-center">Don't Have an Account? <a href="/app/signup" class="text-info">Register</a></p>
     </div>
   </div>
