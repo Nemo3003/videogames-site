@@ -18,6 +18,18 @@ const GameSchema = new mongoose.Schema(
         type: String,
         required: true
     },
+    engine:{
+      type: String,
+      required: true
+    },
+    platform:{
+        type: String,
+        required: true
+    },
+    classification:{
+      type: String,
+      required: true
+    },
     user: {
       type: String,
       required: true,

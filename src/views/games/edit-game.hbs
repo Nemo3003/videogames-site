@@ -47,7 +47,7 @@
           >{{gamesi.description}}</textarea>
         </div>
         <div class="mb-3">
-          <label for="type">Type:</label>
+          <label for="type">Genre:</label>
           <input
             type="text"
             name="type"
@@ -64,6 +64,36 @@
             class="form-control"
             value="{{gamesi.price}}"
             {placeholder="{{gamesi.price}}"}
+          />
+        </div>
+        <div class="mb-3">
+          <label for="engine">Engine:</label>
+          <input
+            type="text"
+            name="engine"
+            class="form-control"
+            value="{{gamesi.engine}}"
+            {placeholder="{{gamesi.engine}}"}
+          />
+        </div>
+        <div class="mb-3">
+          <label for="platform">Platform:</label>
+          <input
+            type="text"
+            name="platform"
+            class="form-control"
+            value="{{gamesi.platform}}"
+            {placeholder="{{gamesi.platform}}"}
+          />
+        </div>
+        <div class="mb-3">
+          <label for="classification">Classification:</label>
+          <input
+            type="text"
+            name="classification"
+            class="form-control"
+            value="{{gamesi.classification}}"
+            {placeholder="{{classification}}"}
           />
         </div>
         <button class="btn btn-primary w-100" type="submit">

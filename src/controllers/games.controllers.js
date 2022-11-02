@@ -45,7 +45,10 @@ const createGame = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     type: req.body.type,
-    price: req.body.price
+    price: req.body.price,
+    engine: req.body.engine,
+    platform: req.body.platform,
+    classification: req.body.classification
   };
   const response = await mongodb.getDb().db('videogames').collection('games').insertOne(game);
   if (response.acknowledged) {
@@ -56,22 +59,28 @@ const createGame = async (req, res) => {
 };
 
 const newGame = async(req,res) => {
-  const{title,description,type,price} = req.body;
+  const{title,description,type,price, engine, platform, classification} = req.body;
   const errors = [];
   if(!title){errors.push({text: 'Incert title!'});}
   if(!description){errors.push({text: 'Incert description!'});}
   if(!type){errors.push({text: 'Incert type!'});}
   if(!price){errors.push({text: 'Incert price!'});}
+  if(!engine){errors.push({text: 'Incert engine!'});}
+  if(!platform){errors.push({text: 'Incert platform!'});}
+  if(!classification){errors.push({text: 'Incert classification!'});}
   if(errors.length >0){
       res.render('../views/games/new-game', {
           errors,
           title,
           description,
           type,
-          price
+          price,
+          engine,
+          platform,
+          classification
       });
   }
-  const newGame = new Game({title, description, type, price});
+  const newGame = new Game({title, description, type, price, engine, platform, classification});
   //Shows only the games created by that user in particular
   newGame.user = req.user.id;
   await newGame.save()
@@ -107,7 +116,11 @@ const updateGame = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     type: req.body.type,
-    Price: req.body.Price
+    price: req.body.Price,
+    engine: req.body.engine,
+    platform: req.body.platform,
+    classification: req.body.classification
+
   };
   const response = await mongodb
     .getDb()
@@ -123,8 +136,8 @@ const updateGame = async (req, res) => {
 };
 
 const editGame = async (req,res)=>{
-  const {title, description, type, price} = req.body;
-  await Game.findByIdAndUpdate(req.params.id, {title, description, type, price});
+  const {title, description, type, price, engine, platform, classification} = req.body;
+  await Game.findByIdAndUpdate(req.params.id, {title, description, type, price,engine, platform, classification});
   req.flash('success_msg', 'Game has been updated successfully')
   res.redirect('/app/app/games/games-added')
 }

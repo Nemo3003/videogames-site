@@ -115,6 +115,15 @@
                 },
                 "price": {
                   "example": "any"
+                },
+                "engine": {
+                  "example": "any"
+                },
+                "platform": {
+                  "example": "any"
+                },
+                "classification": {
+                  "example": "any"
                 }
               }
             }
@@ -157,6 +166,15 @@
                   "example": "any"
                 },
                 "price": {
+                  "example": "any"
+                },
+                "engine": {
+                  "example": "any"
+                },
+                "platform": {
+                  "example": "any"
+                },
+                "classification": {
                   "example": "any"
                 }
               }
@@ -213,6 +231,15 @@
                   "example": "any"
                 },
                 "price": {
+                  "example": "any"
+                },
+                "engine": {
+                  "example": "any"
+                },
+                "platform": {
+                  "example": "any"
+                },
+                "classification": {
                   "example": "any"
                 }
               }
@@ -284,6 +311,15 @@
                   "example": "any"
                 },
                 "Price": {
+                  "example": "any"
+                },
+                "engine": {
+                  "example": "any"
+                },
+                "platform": {
+                  "example": "any"
+                },
+                "classification": {
                   "example": "any"
                 }
               }
