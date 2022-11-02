@@ -4,6 +4,8 @@ const ObjectId = require("mongodb").ObjectId;
 const bcrypt = require("bcrypt");
 const { response } = require("express");
 require("dotenv").config();
+const User = require('../models/User')
+const passport = require('passport')
 let coded2 = encodeURIComponent(process.env.GAMES_SECRET);
 
 /*const getUserById = async (req, res) => {
@@ -32,6 +34,39 @@ let coded2 = encodeURIComponent(process.env.GAMES_SECRET);
     });
     
 };*/
+
+const signUpIn = async (req,res)=>{
+  const {name, email, password, confirm_password} = req.body;
+  const errors = []
+  if(name <= 0){errors.push({text: "Name cannot be empty"})}
+  if(email <= 0){errors.push({text: "Email cannot be empty"})}
+  if(password <= 0){errors.push({text: "Password cannot be empty"})}
+  if(password != confirm_password){errors.push({ text: 'Passwords do not match'})}
+  if(password.length < 8){errors.push({ text: 'Password must be at least 8 characters long'});}
+  if(errors.length > 0){res.render('../views/users/signup.hbs', {errors, name, email,password, confirm_password})}
+  else{
+      // Look for email coincidence
+const userFound = await User.findOne({ email: email });
+if (userFound) {
+  req.flash("error_msg", "The Email is already in use.");
+  return res.redirect("/app/signup");
+}
+
+// Saving a New User
+const newUser = new User({ name, email, password });
+newUser.password = await newUser.encryptPassword(password);
+await newUser.save();
+req.flash("success_msg", "You are registered.");
+res.redirect("/app/signin");
+};
+  }
+
+const signPassp = passport.authenticate("local", {
+  successRedirect: "/app/app/games/games/add",
+  failureRedirect: "/app/signin",
+  failureFlash: true,
+})
+
 
 const createUs = async (req, res) => {
   try {
@@ -68,8 +103,18 @@ const deleteUs = async (req, res) => {
   }
 };
 
+const logout =  async function(req, res) {
+  await req.logout((err) => {
+      if (err) return next(err);
+      req.flash("success_msg", "You are logged out now.");
+      res.redirect("/app");
+    });
+}
+
 module.exports = {
   createUs,
   deleteUs,
-  //getUserById,
+  signUpIn,
+  signPassp,
+  logout
 };

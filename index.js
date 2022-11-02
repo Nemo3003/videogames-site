@@ -6,25 +6,17 @@ const exphbs = require("express-handlebars");
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 8080;
-const mongodb = require("./db/connect");
+const mongodb = require("./src/db/connect");
 const bodyParser = require("body-parser");
-const {
-  errorLogger,
-  errorResponder,
-  invalidPathHandler,
-} = require("./middleware/middleware");
-const { application, response } = require("express");
-const bcrypt = require("bcrypt");
 const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
-const { createUs, getUserById } = require("./controllers/users.controllers");
 const passport = require("passport");
 
-require('./database')
-require('./config/passport')
+require('./src/db/database')
+require('./src/config/passport')
 
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'src/views'))
 const hbs = exphbs.create({
   defaultLayout: "main",
   layoutsDir: path.join(app.get("views"), "layouts"),
@@ -61,7 +53,7 @@ app.use((req, res, next) => {
 });
 
 //static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'src/public')));
 
 app
   .use(bodyParser.json())
@@ -69,7 +61,7 @@ app
     res.setHeader("Access-Control-Allow-Origin", "*");
     next();
   })
-  .use("/app", require("./routes"));
+  .use("/app", require("./src/routes"));
 
 
 
