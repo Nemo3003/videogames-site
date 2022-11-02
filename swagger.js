@@ -7,11 +7,11 @@ const doc = {
   },
   host: '',
   schemes: [
-    'http', 'http'
+    'https', 'http'
   ],
 };
 
-const outputFile = './routes/swagger-output.json';
+const outputFile = './src/routes/swagger-output.json';
 const endpointsFiles = ['./index.js'];
 
 // generate swagger.json
