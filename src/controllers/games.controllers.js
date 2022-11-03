@@ -6,14 +6,17 @@ const Game = require('../models/Game');
 //-***********************************************************************************************
 
 const getAllGames = async (req, res) => {
-  const result = await mongodb.getDb().db('videogames').collection("games").find().toArray().then((result) => {
-    res.setHeader('Content-Type', 'application/json');
-    if(result.length > 0){
-      res.status(200).json(result);
-    } else{
-      res.status(404).json({message: 'Nothing was found!'});
-    }
-  });
+  try{
+  Game.find({}, function(err, games) {
+    let gameMap = {};
+    games.forEach(function(game) {
+      gameMap[games._id] = game;
+    });
+    res.status(200).send(gameMap);  
+  }).lean().sort();}
+  catch(e){
+    res.status(404).send(e)
+  }
 };
 
 const seeGames = async (req,res)=>{
@@ -26,36 +29,24 @@ const seeGames = async (req,res)=>{
 //-***********************************************************************************************
 
 const getGameById = async (req, res) => {
-  const gameId = new ObjectId(req.params.id);
-  const result = await mongodb.getDb().db('videogames').collection("games").find({ _id: gameId }).toArray().then((result) => {
-    res.setHeader('Content-Type', 'application/json');
-    if(result.length > 0){
-      res.status(200).json(result);
-    } else{
-      res.status(404).json({message: 'Nothing with that id was found!'});
-    }
-  });
+  const gameFound = await Game.findById(req.params.id).sort({date: 'desc'})
+    res.json(gameFound)
 };
 
 //-***********************************************************************************************
 
 const createGame = async (req, res) => {
   
-  const game = {
-    title: req.body.title,
-    description: req.body.description,
-    type: req.body.type,
-    price: req.body.price,
-    engine: req.body.engine,
-    platform: req.body.platform,
-    classification: req.body.classification
-  };
-  const response = await mongodb.getDb().db('videogames').collection('games').insertOne(game);
-  if (response.acknowledged) {
-    res.status(201).json(response);
-  } else {
-    res.status(500).json(response.error || 'Some error occurred while creating the game.');
-  }
+  const {title, description, type, price, engine, platform, classification} = req.body;
+    try{
+    const newGame = new Game(
+      {title, description, type, price, engine, platform, classification});
+        await newGame.save();
+        res.status(200).json(newGame)
+    }
+    catch(e){
+      res.status(500).json(e)
+    }
 };
 
 const newGame = async(req,res) => {
@@ -80,26 +71,31 @@ const newGame = async(req,res) => {
           classification
       });
   }
+  try{
   const newGame = new Game({title, description, type, price, engine, platform, classification});
   //Shows only the games created by that user in particular
   newGame.user = req.user.id;
   await newGame.save()
   req.flash('success_msg', 'Game added successfully')
-  res.redirect('/app/app/games/games-added')
+  res.status(200).redirect('/app/app/games/games-added')
+}
+catch(e){
+  req.flash('error_msg', 'Game has not been added successfully')
+  res.status(500).redirect('/app/app/games/games-added')
+}
 
 }
 
 //-***********************************************************************************************
 
 const deleteGame = async (req, res) => {
-  const gameId = new ObjectId(req.params.id);
-  const resPonder = 200
-  try {
-    await mongodb.getDb().db('videogames').collection('games').deleteOne({ _id: gameId }, true);
-    res.sendStatus(200);
-  } catch (error) {
-     res.status(500).send;
-  }};
+  try{
+  await Game.findByIdAndDelete(req.params.id);
+    //res.redirect('/');
+    res.status(201)
+  }catch(err){
+    res.status(500).send(err)
+  }}
 
 const deleteGameNew = async (req, res)=> {
   await Game.findByIdAndDelete(req.params.id);
@@ -110,28 +106,15 @@ const deleteGameNew = async (req, res)=> {
 //-***********************************************************************************************
 
 const updateGame = async (req, res) => {
-  const userId = new ObjectId(req.params.id);
-  // be aware of updateOne if you only want to update specific fields
-  const game = {
-    title: req.body.title,
-    description: req.body.description,
-    type: req.body.type,
-    price: req.body.Price,
-    engine: req.body.engine,
-    platform: req.body.platform,
-    classification: req.body.classification
-
-  };
-  const response = await mongodb
-    .getDb()
-    .db('videogames')
-    .collection('games')
-    .replaceOne({ _id: userId }, game);
-  console.log(response);
-  if (response.modifiedCount > 0) {
-    res.status(204).send();
-  } else {
-    res.status(500).json(response.error || 'Some error occurred while updating the game.');
+  const {title, description, type, price, engine, platform, classification} = req.body;
+  try{
+    const gameEdited = await Game.findByIdAndUpdate(req.params.id, 
+      {title, description, type, price, engine, platform, classification});
+    //res.redirect('/')
+    res.status(200).json(gameEdited)
+  }
+  catch (e){
+    res.status(500).json(e)
   }
 };
 
